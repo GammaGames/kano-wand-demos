@@ -1,0 +1,2 @@
+PyUserInput==0.1.11
+pymouse==1.0
