@@ -2,10 +2,13 @@ from kano_wand.kano_wand import Shoppe, Wand, PATTERN
 import sys
 
 if __name__ == "__main__":
-    class MyWand(Wand):
     # Custom wand class extending the default wand
-        colors = ["#a333c8", "2185d0", "0x21ba45", "#fbbd08", "#f2711c", "#db2828"]
+    class MyWand(Wand):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.colors = ["#a333c8", "2185d0", "0x21ba45", "#fbbd08", "#f2711c", "#db2828"]
 
+        # Do some functions after connecting
         def post_connect(self):
             print(f"Connected to {self.name}")
             # Vibrate the wand and set its color to red
@@ -37,6 +40,7 @@ if __name__ == "__main__":
             # Scan for wands and automatically connect
             print("Scanning...")
             wands = shoppe.scan(connect=True)
+            # For each wand (Only tested with one)
             for wand in wands:
                 # Vibrate the wand and set its color to red
                 wand.vibrate(PATTERN.BURST)

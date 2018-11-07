@@ -1,13 +1,15 @@
 from kano_wand.kano_wand import Shoppe, Wand, PATTERN
-import math
+import sys
 from pymouse import PyMouse
 
 if __name__ == "__main__":
     class MouseWand(Wand):
-        left_color = "#2185d0"
-        right_color = "#f2711c"
-        left = False
-        pressed_left = False
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.left_color = "#2185d0"
+            self.right_color = "#f2711c"
+            self.left = False
+            self.pressed_left = False
 
         def post_connect(self):
             print("Move the wand to move the mouse")
@@ -49,12 +51,18 @@ if __name__ == "__main__":
 
             # TODO hold button, twist left to right to disconnect
 
+    # If we pass a -d flag, enable debugging
+    debug = False
+    if len(sys.argv) > 1:
+        debug = sys.argv[1] == "-d"
+
     # Create a new wand scanner
-    shoppe = Shoppe(wand_class=MouseWand)
+    shoppe = Shoppe(wand_class=MouseWand, debug=debug)
     wands = []
     try:
         # While we don't have any wands
         while len(wands) == 0:
+            print("Scanning...")
             # Scan for wands and automatically connect
             wands = shoppe.scan(connect=True)
 
