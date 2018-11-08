@@ -20,9 +20,10 @@ if __name__ == "__main__":
             self.subscribe_position()
 
         # Position callback, automatically called after connecting to wand
-        def on_position(self, x, y, z, roll):
+        def on_position(self, x, y, pitch, roll):
+            pitch = f"Pitch: {pitch}".ljust(16)
             roll = f"Roll: {roll}".ljust(16)
-            print(f"{roll}(x, y, z): ({x}, {y}, {z})")
+            print(f"{pitch}{roll}(x, y): ({x}, {y})")
 
         # Button callback, automatically called after connecting to wand
         def on_button(self, value):

@@ -40,12 +40,13 @@ if __name__ == "__main__":
                             wand.disconnect()
 
                 # Callback for position
-                def onPos(x, y, z, roll):
+                def onPos(x, y, pitch, roll):
+                    pitch = f"Pitch: {pitch}".ljust(16)
                     roll = f"Roll: {roll}".ljust(16)
-                    print(f"{roll}(x, y, z): ({x}, {y}, {z})")
+                    print(f"{pitch}{roll}(x, y): ({x}, {y})")
 
                 # Add the event callbacks to the wand
-                id = wand.on("button", onButton)
+                # id = wand.on("button", onButton)
                 wand.on("position", onPos)
 
     # Detect keyboard interrupt and disconnect wands

@@ -46,9 +46,10 @@ if __name__ == "__main__":
                 wand.vibrate(PATTERN.BURST)
 
                 # Callback for position
-                def onPos(x, y, z, roll):
+                def onPos(x, y, pitch, roll):
+                    pitch = f"Pitch: {pitch}".ljust(16)
                     roll = f"Roll: {roll}".ljust(16)
-                    print(f"{roll}(x, y, z): ({x}, {y}, {z})")
+                    print(f"{pitch}{roll}(x, y): ({x}, {y})")
 
                 # Add the event callback to the wand
                 wand.on("position", onPos)

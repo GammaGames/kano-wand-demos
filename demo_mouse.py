@@ -24,7 +24,7 @@ if __name__ == "__main__":
             self.subscribe_button()
             self.subscribe_position()
 
-        def on_position(self, x, y, z, roll):
+        def on_position(self, x, y, pitch, roll):
             # Do some magic to get an adjusted x and y position
             x_pos = self.x_dim * (1.0 - (x * 4 + 1000) / 2000)
             y_pos = self.x_dim * (1.0 - (y * 4 + 1000) / 2000)

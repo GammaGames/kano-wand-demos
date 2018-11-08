@@ -9,7 +9,7 @@ In order to use these demos you must clone the submodule using one of the follow
 # If you are just cloning the repo
 git clone --recursive git@github.com:GammaGames/kano_wand.git
 # If you have already cloned it and need to update the submodules
-git submodule foreach git pull
+git submodule foreach git pull origin master
 ```
 
 All demos must be run with sudo, because bluepy's ble requires elevation to scan.
