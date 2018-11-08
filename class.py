@@ -19,21 +19,21 @@ if __name__ == "__main__":
             self.subscribe_button()
             self.subscribe_position()
 
-        # Position callback, automatically called after connecting to wand
-        def on_position(self, x, y, pitch, roll):
-            pitch = f"Pitch: {pitch}".ljust(16)
-            roll = f"Roll: {roll}".ljust(16)
-            print(f"{pitch}{roll}(x, y): ({x}, {y})")
-
         # Button callback, automatically called after connecting to wand
-        def on_button(self, value):
-            # If the button was pressed
-            if value:
+        def on_button(self, pressed):
+            if pressed:
+                self.unsubscribe_position()
                 # Update the led
                 self.set_led(self.colors.pop())
                 # Disconnect if we run out of colors
                 if len(self.colors) == 0:
                     self.disconnect()
+
+        # Position callback, automatically called after connecting to wand
+        def on_position(self, x, y, pitch, roll):
+            pitch = f"Pitch: {pitch}".ljust(16)
+            roll = f"Roll: {roll}".ljust(16)
+            print(f"{pitch}{roll}(x, y): ({x}, {y})")
 
     # If we pass a -d flag, enable debugging
     debug = False

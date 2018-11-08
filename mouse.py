@@ -39,9 +39,9 @@ if __name__ == "__main__":
                 self.left = True
                 self.set_led(self.left_color)
 
-        def on_button(self, value):
+        def on_button(self, pressed):
             x_pos, y_pos = self._m.position()
-            if value:
+            if pressed:
                 self._m.press(x_pos, y_pos, 1 if self.left else 2)
                 self.pressed_left = self.left == True
             else:

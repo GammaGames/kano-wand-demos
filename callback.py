@@ -26,28 +26,34 @@ if __name__ == "__main__":
                 wand.vibrate(PATTERN.BURST)
                 wand.set_led(colors.pop())
 
-                # Callback for button presses
-                def onButton(value):
-                    global wand
-                    global colors
-
-                    # If the button was pressed
-                    if value:
-                        # Update the led
-                        wand.set_led(colors.pop())
-                        # Disconnect if we run out of colors
-                        if len(colors) == 0:
-                            wand.disconnect()
-
                 # Callback for position
                 def onPos(x, y, pitch, roll):
                     pitch = f"Pitch: {pitch}".ljust(16)
                     roll = f"Roll: {roll}".ljust(16)
                     print(f"{pitch}{roll}(x, y): ({x}, {y})")
 
-                # Add the event callbacks to the wand
+                # Add the position callback to the wand
+                position_id = wand.on("position", onPos)
+
+                # Callback for button presses
+                def onButton(pressed):
+                    global wand
+                    global colors
+                    global pos_id
+
+                    # If the button was pressed
+                    if pressed:
+                        if position_id != None:
+                            wand.off(position_id)
+                            position_id = None
+                        # Update the led
+                        wand.set_led(colors.pop())
+                        # Disconnect if we run out of colors
+                        if len(colors) == 0:
+                            wand.disconnect()
+
+                # Add the button callback to the wand
                 wand.on("button", onButton)
-                wand.on("position", onPos)
 
     # Detect keyboard interrupt and disconnect wands
     except KeyboardInterrupt as e:

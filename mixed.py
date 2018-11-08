@@ -7,6 +7,7 @@ if __name__ == "__main__":
         def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.colors = ["#a333c8", "2185d0", "0x21ba45", "#fbbd08", "#f2711c", "#db2828"]
+            self.position_id = None
 
         # Do some functions after connecting
         def post_connect(self):
@@ -17,9 +18,12 @@ if __name__ == "__main__":
             self.subscribe_button()
 
         # Button callback, automatically called after connecting to wand
-        def on_button(self, value):
-            # If the button was pressed
-            if value:
+        def on_button(self, pressed):
+            if pressed:
+                # Unsubscribe from the position callback
+                # NOTE You could pass `continue_notifications=True`
+                #   to continue using the wand's `on_position` function
+                self.off(self.position_id)
                 # Update the led
                 self.set_led(self.colors.pop())
                 # Disconnect if we run out of colors
@@ -52,7 +56,7 @@ if __name__ == "__main__":
                     print(f"{pitch}{roll}(x, y): ({x}, {y})")
 
                 # Add the event callback to the wand
-                wand.on("position", onPos)
+                wand.position_id = wand.on("position", onPos)
 
     # Detect keyboard interrupt disconnect
     except KeyboardInterrupt as e:
