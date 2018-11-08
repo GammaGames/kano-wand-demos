@@ -14,6 +14,8 @@ git submodule foreach git pull origin master
 
 All demos must be run with sudo, because bluepy's ble requires elevation to scan.
 
+You can pass a `-d` flag into each script to enable printing of debug messages.
+
 ## demo_callback.py
 
 ## demo_class.py
