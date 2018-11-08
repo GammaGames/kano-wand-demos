@@ -46,7 +46,7 @@ if __name__ == "__main__":
                     print(f"{pitch}{roll}(x, y): ({x}, {y})")
 
                 # Add the event callbacks to the wand
-                # id = wand.on("button", onButton)
+                wand.on("button", onButton)
                 wand.on("position", onPos)
 
     # Detect keyboard interrupt and disconnect wands

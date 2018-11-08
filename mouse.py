@@ -49,8 +49,6 @@ if __name__ == "__main__":
                 if self.pressed_left and not self.left:
                     self.disconnect()
 
-            # TODO hold button, twist left to right to disconnect
-
     # If we pass a -d flag, enable debugging
     debug = False
     if len(sys.argv) > 1:
