@@ -1,4 +1,4 @@
-from kano_wand.kano_wand import Shoppe, PATTERN
+from kano_wand.kano_wand import Shop, PATTERN
 import time
 import sys
 
@@ -9,14 +9,14 @@ if __name__ == "__main__":
         debug = sys.argv[1] == "-d"
 
     # Create a new wand scanner
-    shoppe = Shoppe(debug=debug)
+    shop = Shop(debug=debug)
     wands = []
     try:
         # While we don't have any wands
         while len(wands) == 0:
             # Scan for wands and automatically connect
             print("Scanning...")
-            wands = shoppe.scan(connect=True)
+            wands = shop.scan(connect=True)
             # For each wand (Only tested with one)
             for wand in wands:
                 print(f"Connected to {wand.name}")

@@ -1,4 +1,4 @@
-from kano_wand.kano_wand import Shoppe, Wand, PATTERN
+from kano_wand.kano_wand import Shop, Wand, PATTERN
 import sys
 from pymouse import PyMouse
 
@@ -55,14 +55,14 @@ if __name__ == "__main__":
         debug = sys.argv[1] == "-d"
 
     # Create a new wand scanner
-    shoppe = Shoppe(wand_class=MouseWand, debug=debug)
+    shop = Shop(wand_class=MouseWand, debug=debug)
     wands = []
     try:
         # While we don't have any wands
         while len(wands) == 0:
             print("Scanning...")
             # Scan for wands and automatically connect
-            wands = shoppe.scan(connect=True)
+            wands = shop.scan(connect=True)
 
     # Detect keyboard interrupt and disconnect wands
     except KeyboardInterrupt as e:
