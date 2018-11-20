@@ -1,2 +1,5 @@
+MooseGesture==1.0.2
+numpy==1.15.4
 PyUserInput==0.1.11
+bluepy==1.2.0
 pymouse==1.0

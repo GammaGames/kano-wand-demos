@@ -1,4 +1,4 @@
-from kano_wand.kano_wand import Shop, Wand, PATTERN
+from kano_wand.kano_wand import Shop, Wand
 import sys
 from pymouse import PyMouse
 

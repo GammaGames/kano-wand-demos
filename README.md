@@ -14,6 +14,11 @@ git submodule init
 git pull --recurse-submodules
 ```
 
+Then install the requirements with the following:
+```sh
+pip install -r requirements.txt
+```
+
 ## Usage
 
 All demos must be run with sudo, because bluepy's ble requires elevation to scan. You can pass a `-d` flag into each script to enable printing of debug messages. For example, to run the callback demo with debugging enabled you should use the following:
@@ -53,3 +58,7 @@ This demo does the same as the callback.py demo, but it subscribes to the button
 ### mouse<span></span>.py
 
 This demo is a little more fun, it lets you move the mouse around on your screen with the wand! You can tilt the wand left to left click and right to right click. By tilting the wand left, holding the button down, tilting the wand right, and letting to fo the button you can disconnect the wand and exit the demo.
+
+### gesture<span></span>.py
+
+This is a more proof-of-concept demo. It uses moosegesture to print out movements (arrays of directions, for example `['U', 'D', 'UR']`). It prints out direction arrays, and you can draw a counterclockwise circle to disconnect the wand. Further work can be done to use the wand gestures from the Kano app, as well.
