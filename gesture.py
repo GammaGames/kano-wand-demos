@@ -1,5 +1,6 @@
-import moosegesture
 from kano_wand.kano_wand import Shop, Wand, PATTERN
+import moosegesture
+import sys
 
 if __name__ == "__main__":
     class GestureWand(Wand):
@@ -10,27 +11,35 @@ if __name__ == "__main__":
 
         def post_connect(self):
             print("Hold the button, move the wand, and release the button to create gestures")
-            print("Draw a counterclockwise circle to disconnect the wand")
+            print("Draw a counterclockwise circle (starting at the bottom) to disconnect the wand")
             self.subscribe_button()
             self.subscribe_position()
 
         def on_position(self, x, y, pitch, roll):
             if self.pressed:
+                # Add the mouse's position to the positions array
                 self.positions.append(tuple([-x, -y]))
 
         def on_button(self, pressed):
             self.pressed = pressed
 
             if not pressed:
+                # If releasing the button, print out the gestures and reset the positions
                 gesture = moosegesture.getGesture(self.positions)
                 self.positions = []
 
                 print(gesture)
+                # If it is a counterclockwise circle disconnect the wand
                 if gesture == ['R', 'UR', 'U', 'UL', 'L', 'DL', 'D', 'DR']:
                     self.disconnect()
 
+    # If we pass a -d flag, enable debugging
+    debug = False
+    if len(sys.argv) > 1:
+        debug = sys.argv[1] == "-d"
+
     # Create a new wand scanner
-    shop = Shop(wand_class=GestureWand)
+    shop = Shop(wand_class=GestureWand, debug=debug)
     wands = []
     try:
         # While we don't have any wands
