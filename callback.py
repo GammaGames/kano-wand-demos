@@ -39,7 +39,7 @@ if __name__ == "__main__":
                 def onButton(pressed):
                     global wand
                     global colors
-                    global pos_id
+                    global position_id
 
                     # If the button was pressed
                     if pressed:
