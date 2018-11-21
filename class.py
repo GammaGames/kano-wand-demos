@@ -33,7 +33,7 @@ if __name__ == "__main__":
         def on_position(self, x, y, pitch, roll):
             pitch = "Pitch: {}".format(pitch).ljust(16)
             roll = "Roll: {}".format(roll).ljust(16)
-            print("{}{roll}(x, y): ({}, {})".format(pitch, roll, x, y))
+            print("{}{}(x, y): ({}, {})".format(pitch, roll, x, y))
 
     # If we pass a -d flag, enable debugging
     debug = False
