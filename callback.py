@@ -19,7 +19,7 @@ if __name__ == "__main__":
             wands = shop.scan(connect=True)
             # For each wand (Only tested with one)
             for wand in wands:
-                print(f"Connected to {wand.name}")
+                print("Connected to {}".format(wand.name))
 
                 colors = ["#a333c8", "2185d0", "0x21ba45", "#fbbd08", "#f2711c", "#db2828"]
                 # Vibrate the wand and set its color to red
@@ -28,9 +28,9 @@ if __name__ == "__main__":
 
                 # Callback for position
                 def onPos(x, y, pitch, roll):
-                    pitch = f"Pitch: {pitch}".ljust(16)
-                    roll = f"Roll: {roll}".ljust(16)
-                    print(f"{pitch}{roll}(x, y): ({x}, {y})")
+                    pitch = "Pitch: {}".format(pitch).ljust(16)
+                    roll = "Roll: {}".format(roll).ljust(16)
+                    print("{}{}(x, y): ({}, {})".format(pitch, roll, x, y))
 
                 # Add the position callback to the wand
                 position_id = wand.on("position", onPos)

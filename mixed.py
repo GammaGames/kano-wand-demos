@@ -11,7 +11,7 @@ if __name__ == "__main__":
 
         # Do some functions after connecting
         def post_connect(self):
-            print(f"Connected to {self.name}")
+            print("Connected to {}".format(self.name))
             # Vibrate the wand and set its color to red
             self.set_led(self.colors.pop())
             # Subscribe to notifications
@@ -51,9 +51,9 @@ if __name__ == "__main__":
 
                 # Callback for position
                 def onPos(x, y, pitch, roll):
-                    pitch = f"Pitch: {pitch}".ljust(16)
-                    roll = f"Roll: {roll}".ljust(16)
-                    print(f"{pitch}{roll}(x, y): ({x}, {y})")
+                    pitch = "Pitch: {}".format(pitch).ljust(16)
+                    roll = "Roll: {}".format(roll).ljust(16)
+                    print("{}{}(x, y): ({}, {})".format(pitch, roll, x, y))
 
                 # Add the event callback to the wand
                 wand.position_id = wand.on("position", onPos)
