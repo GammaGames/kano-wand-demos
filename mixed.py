@@ -1,35 +1,35 @@
 from kano_wand.kano_wand import Shop, Wand, PATTERN
 import sys
 
-if __name__ == "__main__":
-    # Custom wand class extending the default wand
-    class MyWand(Wand):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.colors = ["#a333c8", "2185d0", "0x21ba45", "#fbbd08", "#f2711c", "#db2828"]
-            self.position_id = None
+# Custom wand class extending the default wand
+class MyWand(Wand):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.colors = ["#a333c8", "2185d0", "0x21ba45", "#fbbd08", "#f2711c", "#db2828"]
+        self.position_id = None
 
-        # Do some functions after connecting
-        def post_connect(self):
-            print("Connected to {}".format(self.name))
-            # Vibrate the wand and set its color to red
+    # Do some functions after connecting
+    def post_connect(self):
+        print("Connected to {}".format(self.name))
+        # Vibrate the wand and set its color to red
+        self.set_led(self.colors.pop())
+        # Subscribe to notifications
+        self.subscribe_button()
+
+    # Button callback, automatically called after connecting to wand
+    def on_button(self, pressed):
+        if pressed:
+            # Unsubscribe from the position callback
+            # NOTE You could pass `continue_notifications=True`
+            #   to continue using the wand's `on_position` function
+            self.off(self.position_id)
+            # Update the led
             self.set_led(self.colors.pop())
-            # Subscribe to notifications
-            self.subscribe_button()
+            # Disconnect if we run out of colors
+            if len(self.colors) == 0:
+                self.disconnect()
 
-        # Button callback, automatically called after connecting to wand
-        def on_button(self, pressed):
-            if pressed:
-                # Unsubscribe from the position callback
-                # NOTE You could pass `continue_notifications=True`
-                #   to continue using the wand's `on_position` function
-                self.off(self.position_id)
-                # Update the led
-                self.set_led(self.colors.pop())
-                # Disconnect if we run out of colors
-                if len(self.colors) == 0:
-                    self.disconnect()
-
+def main():
     # If we pass a -d flag, enable debugging
     debug = False
     if len(sys.argv) > 1:
@@ -62,3 +62,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         for wand in wands:
             wand.disconnect()
+
+if __name__ == "__main__":
+    main()

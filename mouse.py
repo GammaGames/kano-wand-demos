@@ -27,7 +27,7 @@ if __name__ == "__main__":
         def on_position(self, x, y, pitch, roll):
             # Do some magic to get an adjusted x and y position
             x_pos = self.x_dim * (1.0 - (x * 4 + 1000) / 2000)
-            y_pos = self.x_dim * (1.0 - (y * 4 + 1000) / 2000)
+            y_pos = self.y_dim * (1.0 - (y * 4 + 1000) / 2000)
             # Move the mouse
             self._m.move(int(round(x_pos)), int(round(y_pos)))
 

@@ -2,37 +2,37 @@ from kano_wand.kano_wand import Shop, Wand, PATTERN
 import moosegesture
 import sys
 
-if __name__ == "__main__":
-    class GestureWand(Wand):
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.pressed = False
+class GestureWand(Wand):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.pressed = False
+        self.positions = []
+
+    def post_connect(self):
+        print("Hold the button, move the wand, and release the button to create gestures")
+        print("Draw a counterclockwise circle (starting at the bottom) to disconnect the wand")
+        self.subscribe_button()
+        self.subscribe_position()
+
+    def on_position(self, x, y, pitch, roll):
+        if self.pressed:
+            # Add the mouse's position to the positions array
+            self.positions.append(tuple([x, y]))
+
+    def on_button(self, pressed):
+        self.pressed = pressed
+
+        if not pressed:
+            # If releasing the button, print out the gestures and reset the positions
+            gesture = moosegesture.getGesture(self.positions)
             self.positions = []
 
-        def post_connect(self):
-            print("Hold the button, move the wand, and release the button to create gestures")
-            print("Draw a counterclockwise circle (starting at the bottom) to disconnect the wand")
-            self.subscribe_button()
-            self.subscribe_position()
+            print(gesture)
+            # If it is a counterclockwise circle disconnect the wand
+            if gesture == ['R', 'UR', 'U', 'UL', 'L', 'DL', 'D', 'DR']:
+                self.disconnect()
 
-        def on_position(self, x, y, pitch, roll):
-            if self.pressed:
-                # Add the mouse's position to the positions array
-                self.positions.append(tuple([-x, -y]))
-
-        def on_button(self, pressed):
-            self.pressed = pressed
-
-            if not pressed:
-                # If releasing the button, print out the gestures and reset the positions
-                gesture = moosegesture.getGesture(self.positions)
-                self.positions = []
-
-                print(gesture)
-                # If it is a counterclockwise circle disconnect the wand
-                if gesture == ['R', 'UR', 'U', 'UL', 'L', 'DL', 'D', 'DR']:
-                    self.disconnect()
-
+def main():
     # If we pass a -d flag, enable debugging
     debug = False
     if len(sys.argv) > 1:
@@ -52,3 +52,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         for wand in wands:
             wand.disconnect()
+
+if __name__ == "__main__":
+    main()
