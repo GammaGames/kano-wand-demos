@@ -26,16 +26,16 @@ if __name__ == "__main__":
 
         def on_position(self, x, y, pitch, roll):
             # Do some magic to get an adjusted x and y position
-            x_pos = self.x_dim * (1.0 - (x * 4 + 1000) / 2000)
+            x_pos = self.x_dim * ((x * 4 + 1000) / 2000)
             y_pos = self.y_dim * (1.0 - (y * 4 + 1000) / 2000)
             # Move the mouse
             self._m.move(int(round(x_pos)), int(round(y_pos)))
 
             # Change left mouse button status and set LED when necessary
-            if roll < 0 and self.left:
+            if roll > 0 and self.left:
                 self.left = False
                 self.set_led(self.right_color)
-            elif roll > 0 and not self.left:
+            elif roll < 0 and not self.left:
                 self.left = True
                 self.set_led(self.left_color)
 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
             x_pos, y_pos = self._m.position()
             if pressed:
                 self._m.press(x_pos, y_pos, 1 if self.left else 2)
-                self.pressed_left = self.left == True
+                self.pressed_left = self.left
             else:
                 self._m.release(x_pos, y_pos, 1 if self.left else 2)
                 if self.pressed_left and not self.left:
