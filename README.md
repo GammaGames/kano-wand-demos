@@ -62,3 +62,7 @@ This demo is a little more fun, it lets you move the mouse around on your screen
 ### gesture<span></span>.py
 
 This is a more proof-of-concept demo. It uses moosegesture to print out movements (arrays of directions, for example `['U', 'D', 'UR']`). It prints out direction arrays, and you can draw a counterclockwise circle to disconnect the wand. Further work can be done to use the wand gestures from the Kano app, as well.
+
+### hue<span></span>.py
+
+This is a demo to control your phillips hue light bulbs with the wand. Perform gestures (based on the included Kano wand motions poster) to make the bulb do different effects! I plan on doing a full writeup at a later time, I will link it here when it is complete.

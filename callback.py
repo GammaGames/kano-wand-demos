@@ -2,7 +2,7 @@ from kano_wand.kano_wand import Shop, PATTERN
 import time
 import sys
 
-if __name__ == "__main__":
+def main():
     # If we pass a -d flag, enable debugging
     debug = False
     if len(sys.argv) > 1:
@@ -59,3 +59,6 @@ if __name__ == "__main__":
     except KeyboardInterrupt as e:
         for wand in wands:
             wand.disconnect()
+
+if __name__ == "__main__":
+    main()

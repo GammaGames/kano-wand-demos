@@ -1,5 +1,12 @@
-MooseGesture==1.0.2
 numpy==1.15.4
-PyUserInput==0.1.11
 bluepy==1.2.0
+
+# gesture.py
+PyUserInput==0.1.11
 pymouse==1.0
+
+# hue.py
+qhue==1.0.10
+
+# gesture.py and hue.py
+MooseGesture==1.0.2
