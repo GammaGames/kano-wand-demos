@@ -17,7 +17,7 @@ class GestureWand(Wand):
     def on_position(self, x, y, pitch, roll):
         if self.pressed:
             # Add the mouse's position to the positions array
-            self.positions.append(tuple([x, y]))
+            self.positions.append(tuple([x, -1 * y]))
 
     def on_button(self, pressed):
         self.pressed = pressed
@@ -29,7 +29,7 @@ class GestureWand(Wand):
 
             print(gesture)
             # If it is a counterclockwise circle disconnect the wand
-            if gesture == ['R', 'UR', 'U', 'UL', 'L', 'DL', 'D', 'DR']:
+            if gesture == ['R', 'UR', 'U', 'UL', 'L', 'DL', 'D', 'DR', 'R']:
                 self.disconnect()
 
 def main():
