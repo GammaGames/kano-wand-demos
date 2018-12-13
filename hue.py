@@ -16,7 +16,7 @@ class GestureWand(Wand):
             ("UL", "UR"): "reducio",
             ("DR", "U", "UR", "DR", "UR"): "flipendo",
             ("R", "D"): "expelliarmus",
-            ("UR", "DR", "UL", "L", "DL"): "incendio",
+            ("UR", "U", "D", "UL", "L", "DL"): "incendio",
             ("UR", "U", "DR"): "lumos",
             ("U", "D", "DR", "R", "L"): "locomotor",
             ("DR", "DL"): "engorgio",
@@ -60,7 +60,7 @@ class LightManager():
     def __init__(self):
         # Dictionary of bulb color effects
         self.color_values = {
-            None: {"bri": 144, "hue": 7676, "sat": 199},
+            None: {"on": True, "bri": 144, "hue": 7676, "sat": 199},
             "stupefy": {"hue": 0, "bri": 200, "sat": 150},
             "wingardium_leviosa": {"hue": 37810, "bri": 100, "sat": 40},
             "reducio": {"hue": 51900, "bri": 200, "sat": 200},
@@ -89,14 +89,13 @@ class LightManager():
             state = {"on": True, **self.color_values[None]}
             s = light()['state']
             for key in state:
-                state[key] = s[key]
+                state[key] = s.get(key)
             self.light_states[id] = state
             # Set the default state for the bulb
             light.state(on=True, **self.color_values[None])
 
     # Flicker the bulbs with wand effects
-    def flicker(self, wand, transition):
-        spell = wand.spell
+    def flicker(self, spell, transition):
 
         for id in self.light_ids:
             light = self.bridge.lights[id]
@@ -104,11 +103,10 @@ class LightManager():
             self.current = self.color_values[spell]
 
             if spell == "lumos":
-                # Toggle the wand on lumos
-                wand.spell = None
+                # Toggle the bulb on lumos
                 light.state(transitiontime=transition, on=not on, **self.current)
             elif on:
-                # Else set the wand state to a small brightness offset
+                # Else set the bulb to a small brightness offset
                 c = self.current.copy()
                 c["bri"] = c["bri"] + random.randint(0, 53)
                 light.state(transitiontime=transition, **c)
@@ -137,7 +135,9 @@ def main():
             sleep = random.uniform(0.1, 0.2)
             transition = math.ceil(sleep * 10)
             # Flicker the bulb and sleep
-            manager.flicker(wand, transition)
+            manager.flicker(wand.spell, transition)
+            if wand.spell == "lumos":
+                wand.spell = None
             time.sleep(sleep)
 
         # Reset bulbs to initial state when wand disconnects
