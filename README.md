@@ -65,4 +65,4 @@ This is a more proof-of-concept demo. It uses moosegesture to print out movement
 
 ### hue<span></span>.py
 
-This is a demo to control your phillips hue light bulbs with the wand. Perform gestures (based on the included Kano wand motions poster) to make the bulb do different effects! [Here's a full writeup in a Medium article.](https://medium.com/@jesse007.gg/control-a-phillips-hue-bulb-with-the-flick-of-a-wand-3a9af4826775)
+This is a demo to control your phillips hue light bulbs with the wand. Perform gestures (based on the included Kano wand motions poster) to make the bulb do different effects! Here's a full writeup in either a [my personal blog](https://www.gammagames.net/2018-12-13/kano-wand) or [Medium article](https://medium.com/@jesse007.gg/control-a-phillips-hue-bulb-with-the-flick-of-a-wand-3a9af4826775).
