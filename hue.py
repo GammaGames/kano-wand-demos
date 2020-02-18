@@ -60,7 +60,7 @@ class LightManager():
     def __init__(self):
         # Dictionary of bulb color effects
         self.color_values = {
-            None: {"on": True, "bri": 144, "hue": 7676, "sat": 199},
+            None: {"bri": 144, "hue": 7676, "sat": 199},
             "stupefy": {"hue": 0, "bri": 200, "sat": 150},
             "wingardium_leviosa": {"hue": 37810, "bri": 100, "sat": 40},
             "reducio": {"hue": 51900, "bri": 200, "sat": 200},
